@@ -51,10 +51,11 @@ RUN set -ex \
         /usr/share/doc \
         /usr/share/doc-base
 
-COPY script/entrypoint.sh /entrypoint.sh
-COPY config/airflow.cfg ${AIRFLOW_USER_HOME}/airflow.cfg
+COPY entrypoint.sh /entrypoint.sh
+COPY airflow.cfg ${AIRFLOW_USER_HOME}/airflow.cfg
 
-RUN chown -R airflow: ${AIRFLOW_USER_HOME}
+RUN chown -R airflow: ${AIRFLOW_USER_HOME} \
+    && chmod 777 /entrypoint.sh
 
 EXPOSE 8080 5555 8793
 
